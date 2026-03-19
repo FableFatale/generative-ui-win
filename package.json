@@ -1,0 +1,57 @@
+{
+  "name": "generative-ui-win",
+  "version": "1.0.0",
+  "description": "MCP server that renders live HTML/SVG widgets in browser windows for Claude Code",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "bin": {
+    "generative-ui-win": "dist/src/mcp-server.js"
+  },
+  "files": [
+    "dist/src/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc && cp src/electron-main.js dist/src/electron-main.js",
+    "prepublishOnly": "npm run build",
+    "demo": "node dist/examples/demo.js",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "generative-ui",
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "morphdom",
+    "websocket",
+    "widget",
+    "browser"
+  ],
+  "author": "FableFatale",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FableFatale/generative-ui-win.git"
+  },
+  "homepage": "https://github.com/FableFatale/generative-ui-win#readme",
+  "bugs": {
+    "url": "https://github.com/FableFatale/generative-ui-win/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "express": "^4.21.0",
+    "open": "^10.1.0",
+    "ws": "^8.18.0"
+  },
+  "optionalDependencies": {
+    "electron": "^41.0.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/ws": "^8.5.13",
+    "typescript": "^5.6.0"
+  }
+}
