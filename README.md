@@ -1,5 +1,8 @@
 # generative-ui-win
 
+[![npm version](https://img.shields.io/npm/v/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
+[![npm downloads](https://img.shields.io/npm/dm/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
+
 Cross-platform generative UI — a Windows-compatible port of [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui).
 
 Ask an LLM to visualize something and get a live interactive widget — sliders, charts, animations — rendered in an Electron window or browser tab. Not a screenshot. Not a code block. A real HTML application with JavaScript, streaming live as the LLM generates it.
