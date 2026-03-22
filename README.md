@@ -37,7 +37,22 @@ Then add to your Claude Code settings (`~/.claude/settings.json`):
 }
 ```
 
-Restart Claude Code, and the `show_widget` / `update_widget` / `run_scripts` / `close_widget` / `get_guidelines` tools become available.
+Restart Claude Code, and the `show_widget` / `update_widget` / `run_scripts` / `close_widget` / `get_guidelines` tools become available. Kanban tools (`kanban_show`, `kanban_add_task`, `kanban_move_task`, `kanban_add_version`, `kanban_heartbeat`, `kanban_get_status`) are also included.
+
+## Kanban Task Monitor
+
+Built-in visual Kanban board for tracking tasks across multiple Claude Code sessions.
+
+```
+/kanban              # Open the board
+/kanban add "title"  # Add a task
+```
+
+Features:
+- **Cross-session monitoring** — tasks from all Claude Code windows appear on one board
+- **Auto-refresh** — file watching detects changes from other sessions instantly
+- **Session tracking** — each session gets a unique color-coded label
+- **4-column workflow** — TODO → DOING → DONE → VERSIONS
 
 ### From source
 
@@ -190,6 +205,10 @@ generative-ui-win/
 │   ├── index.ts             # Library exports + CLI
 │   ├── server.ts            # Express + WebSocket server (singleton, 127.0.0.1)
 │   ├── window-manager.ts    # WindowManager + WindowHandle (EventEmitter)
+│   ├── mcp-server.ts        # MCP server (stdio transport, all tools)
+│   ├── kanban-store.ts      # Kanban data persistence + session management
+│   ├── kanban-renderer.ts   # Kanban board HTML renderer
+│   ├── kanban-cli.ts        # Standalone Kanban CLI
 │   ├── electron-launcher.ts # Spawns Electron with widget URL
 │   ├── electron-main.js     # Electron main process (BrowserWindow)
 │   ├── shell.ts             # Shell HTML (morphdom + WebSocket client)
@@ -198,6 +217,7 @@ generative-ui-win/
 │   └── utils.ts             # escapeJS, findAvailablePort, generateId
 ├── examples/
 │   └── demo.ts              # Three demo widgets
+├── SKILL.md                 # /kanban slash command definition
 ├── package.json
 └── tsconfig.json
 ```

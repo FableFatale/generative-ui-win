@@ -1,21 +1,23 @@
 {
   "name": "generative-ui-win",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "MCP server that renders live HTML/SVG widgets in browser windows for Claude Code",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "bin": {
-    "generative-ui-win": "dist/src/mcp-server.js"
+    "generative-ui-win": "dist/src/mcp-server.js",
+    "generative-ui-kanban": "dist/src/kanban-cli.js"
   },
   "files": [
     "dist/src/",
+    "SKILL.md",
     "README.md"
   ],
   "engines": {
     "node": ">=18"
   },
   "scripts": {
-    "build": "tsc && cp src/electron-main.js dist/src/electron-main.js",
+    "build": "tsc && node -e \"require('fs').copyFileSync('src/electron-main.js','dist/src/electron-main.js')\"",
     "prepublishOnly": "npm run build",
     "demo": "node dist/examples/demo.js",
     "dev": "tsc --watch"
@@ -28,7 +30,9 @@
     "morphdom",
     "websocket",
     "widget",
-    "browser"
+    "browser",
+    "kanban",
+    "task-monitor"
   ],
   "author": "FableFatale",
   "repository": {
