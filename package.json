@@ -37,11 +37,11 @@
   "author": "FableFatale",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FableFatale/-generative-ui-win.git"
+    "url": "git+https://github.com/FableFatale/generative-ui-win.git"
   },
-  "homepage": "https://github.com/FableFatale/-generative-ui-win#readme",
+  "homepage": "https://github.com/FableFatale/generative-ui-win#readme",
   "bugs": {
-    "url": "https://github.com/FableFatale/-generative-ui-win/issues"
+    "url": "https://github.com/FableFatale/generative-ui-win/issues"
   },
   "license": "MIT",
   "dependencies": {
