@@ -37,7 +37,7 @@ Then add to your Claude Code settings (`~/.claude/settings.json`):
 }
 ```
 
-Restart Claude Code, and the `show_widget` / `update_widget` / `run_scripts` / `close_widget` / `get_guidelines` tools become available. Kanban tools (`kanban_show`, `kanban_add_task`, `kanban_move_task`, `kanban_add_version`, `kanban_heartbeat`, `kanban_get_status`) are also included.
+Restart Claude Code, and the `show_widget` / `update_widget` / `run_scripts` / `close_widget` / `get_guidelines` tools become available. Kanban tools (`kanban_show`, `kanban_add_task`, `kanban_batch_add`, `kanban_move_task`, `kanban_claim_task`, `kanban_add_version`, `kanban_heartbeat`, `kanban_get_status`) are also included.
 
 ## Kanban Task Monitor
 
@@ -53,6 +53,39 @@ Features:
 - **Auto-refresh** — file watching detects changes from other sessions instantly
 - **Session tracking** — each session gets a unique color-coded label
 - **4-column workflow** — TODO → DOING → DONE → VERSIONS
+- **Browser refresh safe** — widget content persists across page reloads
+
+### Task Dispatch
+
+Break a requirement into tasks and dispatch them to the board:
+
+```
+/dispatch Add user authentication with JWT tokens
+```
+
+This creates 3-8 scoped tasks with priorities and tags, then opens the board. Workers in other terminals can claim tasks with `/kanban claim`.
+
+### Auto-sync with Claude Code tasks
+
+Sync Claude Code's built-in TaskCreate/TaskUpdate to the Kanban board via a PostToolUse hook:
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "TaskCreate|TaskUpdate",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx generative-ui-sync"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 ### From source
 
@@ -208,6 +241,7 @@ generative-ui-win/
 │   ├── mcp-server.ts        # MCP server (stdio transport, all tools)
 │   ├── kanban-store.ts      # Kanban data persistence + session management
 │   ├── kanban-renderer.ts   # Kanban board HTML renderer
+│   ├── kanban-task-sync.ts  # PostToolUse hook for syncing Claude tasks to Kanban
 │   ├── kanban-cli.ts        # Standalone Kanban CLI
 │   ├── electron-launcher.ts # Spawns Electron with widget URL
 │   ├── electron-main.js     # Electron main process (BrowserWindow)
@@ -218,6 +252,7 @@ generative-ui-win/
 ├── examples/
 │   └── demo.ts              # Three demo widgets
 ├── SKILL.md                 # /kanban slash command definition
+├── DISPATCH.md              # /dispatch slash command (task breakdown + batch dispatch)
 ├── package.json
 └── tsconfig.json
 ```
