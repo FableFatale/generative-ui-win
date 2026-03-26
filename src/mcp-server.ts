@@ -230,7 +230,7 @@ async function refreshKanban(): Promise<void> {
   const handle = handles.get(kanbanWidgetId);
   if (!handle) { kanbanWidgetId = null; return; }
   const data = kanbanStore.load();
-  handle.setContent(renderKanbanHTML(data, SESSION_ID));
+  handle.setContent(renderKanbanHTML(data, SESSION_ID, SESSION_LABEL));
 }
 
 function startFileWatch(): void {
@@ -277,7 +277,7 @@ mcp.tool(
       const data = kanbanStore.load();
       kanbanStore.registerSession(data, SESSION_ID, SESSION_LABEL);
       kanbanStore.cleanStaleSessions(data);
-      const html = renderKanbanHTML(kanbanStore.load(), SESSION_ID);
+      const html = renderKanbanHTML(kanbanStore.load(), SESSION_ID, SESSION_LABEL);
 
       // Reuse existing widget if still open
       if (kanbanWidgetId && handles.has(kanbanWidgetId)) {
@@ -363,6 +363,46 @@ mcp.tool(
   },
 );
 
+// ── Tool: kanban_batch_add ──
+
+mcp.tool(
+  "kanban_batch_add",
+  "Add multiple tasks to the Kanban board at once. Useful for dispatching a planned set of tasks. All tasks start in TODO (pending). Auto-refreshes the board.",
+  {
+    tasks: z.array(z.object({
+      title: z.string().describe("Task title"),
+      description: z.string().optional().describe("Task description"),
+      priority: z.enum(["high", "medium", "low"]).optional().describe("Priority (default: medium)"),
+      tags: z.array(z.string()).optional().describe("Tags for categorization"),
+    })).describe("Array of tasks to add"),
+  },
+  async ({ tasks }) => {
+    const data = kanbanStore.load();
+    kanbanStore.registerSession(data, SESSION_ID, SESSION_LABEL);
+    const added = tasks.map((t) =>
+      kanbanStore.addTask(
+        data,
+        t.title,
+        t.description ?? "",
+        t.priority ?? "medium",
+        t.tags ?? [],
+        SESSION_LABEL,
+      )
+    );
+    await refreshKanban();
+    return {
+      content: [{
+        type: "text" as const,
+        text: JSON.stringify({
+          status: "batch_added",
+          count: added.length,
+          tasks: added.map((t) => ({ id: t.id, title: t.title, priority: t.priority })),
+        }),
+      }],
+    };
+  },
+);
+
 // ── Tool: kanban_move_task ──
 
 mcp.tool(
@@ -388,6 +428,56 @@ mcp.tool(
       content: [{
         type: "text" as const,
         text: JSON.stringify({ task_id: task.id, title: task.title, status: task.status, moved: true }),
+      }],
+    };
+  },
+);
+
+// ── Tool: kanban_claim_task ──
+
+mcp.tool(
+  "kanban_claim_task",
+  "Claim the next available task (or a specific task by ID) for this session. Moves it to in_progress. Returns the claimed task details or an error if nothing is available.",
+  {
+    task_id: z.string().optional().describe(
+      "Specific task ID to claim. If omitted, claims the next unclaimed task (highest priority first)."
+    ),
+  },
+  async ({ task_id }) => {
+    const data = kanbanStore.load();
+    kanbanStore.registerSession(data, SESSION_ID, SESSION_LABEL);
+
+    let targetId = task_id;
+    if (!targetId) {
+      const next = kanbanStore.getNextUnclaimed(data);
+      if (!next) {
+        return {
+          content: [{ type: "text" as const, text: JSON.stringify({ status: "no_tasks", message: "No unclaimed pending tasks available." }) }],
+        };
+      }
+      targetId = next.id;
+    }
+
+    const task = kanbanStore.claimTask(data, targetId, SESSION_ID, SESSION_LABEL);
+    if (!task) {
+      return {
+        content: [{ type: "text" as const, text: `Error: task "${targetId}" not found or already claimed by another session.` }],
+        isError: true,
+      };
+    }
+    await refreshKanban();
+    return {
+      content: [{
+        type: "text" as const,
+        text: JSON.stringify({
+          task_id: task.id,
+          title: task.title,
+          description: task.description,
+          priority: task.priority,
+          tags: task.tags,
+          status: "claimed",
+          claimedBy: SESSION_LABEL,
+        }),
       }],
     };
   },

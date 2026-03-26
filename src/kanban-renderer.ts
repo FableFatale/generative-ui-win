@@ -41,17 +41,22 @@ function esc(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-function renderCard(task: KanbanTask, currentSession?: string): string {
+function renderCard(task: KanbanTask, currentSession?: string, currentLabel?: string): string {
   const pColor = PRIORITY_COLORS[task.priority] ?? PRIORITY_COLORS.medium;
   const tags = task.tags
     .map((t) => `<span class="kb-tag">${esc(t)}</span>`)
     .join("");
   const sColor = task.session ? sessionColor(task.session) : "#555";
   const sLabel = task.session
-    ? `<span class="kb-session-badge" style="color:${sColor}"><span class="kb-session-dot" style="background:${sColor}"></span>${esc(task.session)}${task.session === currentSession ? " (this)" : ""}</span>`
+    ? `<span class="kb-session-badge" style="color:${sColor}"><span class="kb-session-dot" style="background:${sColor}"></span>${esc(task.session)}${task.session === currentLabel ? " (this)" : ""}</span>`
     : "";
+  const claimColor = task.claimedBy ? sessionColor(task.claimedBy) : "";
+  const claimLabel = task.claimedBy
+    ? `<span class="kb-claimed-badge" style="border-color:${claimColor}"><span class="kb-session-dot" style="background:${claimColor}"></span>${esc(task.claimedBy)}${task.claimedBy === currentLabel ? " (this)" : ""}</span>`
+    : "";
+  const unclaimedClass = (task.status === "pending" && !task.claimedBy) ? " kb-unclaimed" : "";
   return `
-    <div class="kb-card" data-id="${esc(task.id)}">
+    <div class="kb-card${unclaimedClass}" data-id="${esc(task.id)}">
       <div class="kb-card-priority" style="background:${pColor}"></div>
       <div class="kb-card-body">
         <div class="kb-card-title">${esc(task.title)}</div>
@@ -60,6 +65,7 @@ function renderCard(task: KanbanTask, currentSession?: string): string {
           <span class="kb-priority-badge" style="color:${pColor}">${task.priority.toUpperCase()}</span>
           ${tags ? `<span class="kb-tags">${tags}</span>` : ""}
           ${sLabel}
+          ${claimLabel}
         </div>
         <div class="kb-card-id">${esc(task.id)}</div>
       </div>
@@ -124,12 +130,12 @@ function renderSessionPanel(sessions: SessionInfo[], currentSession?: string): s
 
 // ── Main Renderer ──
 
-export function renderKanbanHTML(data: KanbanData, currentSession?: string): string {
+export function renderKanbanHTML(data: KanbanData, currentSession?: string, currentLabel?: string): string {
   const board = getBoard(data);
 
-  const todoCards = board.todo.map((t) => renderCard(t, currentSession)).join("");
-  const doingCards = board.doing.map((t) => renderCard(t, currentSession)).join("");
-  const doneCards = board.done.map((t) => renderCard(t, currentSession)).join("");
+  const todoCards = board.todo.map((t) => renderCard(t, currentSession, currentLabel)).join("");
+  const doingCards = board.doing.map((t) => renderCard(t, currentSession, currentLabel)).join("");
+  const doneCards = board.done.map((t) => renderCard(t, currentSession, currentLabel)).join("");
   const versionCards = board.versions
     .map((v) => renderVersionCard(v, data.tasks))
     .join("");
@@ -333,6 +339,23 @@ export function renderKanbanHTML(data: KanbanData, currentSession?: string): str
   .kb-session-self { color: #e0e0e0; font-weight: 600; }
   .kb-session-label { flex: 1; }
   .kb-session-time { color: #666; font-size: 11px; }
+
+  /* Claim badges on cards */
+  .kb-claimed-badge {
+    font-size: 10px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 1px 6px;
+    background: rgba(255,255,255,0.05);
+  }
+  .kb-unclaimed {
+    border-left: 2px dashed #555;
+    opacity: 0.85;
+  }
 </style>
 
 <div class="kb-header">

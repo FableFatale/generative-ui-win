@@ -8,6 +8,8 @@ import { generateId } from "./utils";
 export type TaskStatus = "pending" | "in_progress" | "completed";
 export type Priority = "high" | "medium" | "low";
 
+const PRIORITY_ORDER: Record<Priority, number> = { high: 0, medium: 1, low: 2 };
+
 export interface KanbanTask {
   id: string;
   title: string;
@@ -16,6 +18,8 @@ export interface KanbanTask {
   priority: Priority;
   tags: string[];
   session?: string; // session ID that created this task
+  claimedBy?: string; // session LABEL of the worker that claimed this task
+  claimedAt?: string; // ISO timestamp of the claim
   createdAt: string;
   updatedAt: string;
 }
@@ -145,6 +149,53 @@ export function deleteTask(data: KanbanData, taskId: string): boolean {
   addLogEntry(data, "delete_task", `Deleted "${removed.title}"`);
   save(data);
   return true;
+}
+
+// ── Claim ──
+
+export function claimTask(
+  data: KanbanData,
+  taskId: string,
+  sessionId: string,
+  sessionLabel: string,
+): KanbanTask | null {
+  const task = data.tasks.find((t) => t.id === taskId);
+  if (!task) return null;
+  // Already claimed by another session
+  if (task.claimedBy && task.claimedBy !== sessionLabel) return null;
+  const now = new Date().toISOString();
+  task.claimedBy = sessionLabel;
+  task.claimedAt = now;
+  task.status = "in_progress";
+  task.updatedAt = now;
+  addLogEntry(data, "claim_task", `${sessionLabel} claimed "${task.title}"`);
+  save(data);
+  return task;
+}
+
+export function unclaimTask(data: KanbanData, taskId: string): boolean {
+  const task = data.tasks.find((t) => t.id === taskId);
+  if (!task) return false;
+  const now = new Date().toISOString();
+  const prev = task.claimedBy ?? "unknown";
+  task.claimedBy = undefined;
+  task.claimedAt = undefined;
+  task.status = "pending";
+  task.updatedAt = now;
+  addLogEntry(data, "unclaim_task", `"${task.title}" unclaimed (was ${prev})`);
+  save(data);
+  return true;
+}
+
+export function getNextUnclaimed(data: KanbanData): KanbanTask | null {
+  const candidates = data.tasks
+    .filter((t) => t.status === "pending" && !t.claimedBy)
+    .sort((a, b) => {
+      const pd = PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority];
+      if (pd !== 0) return pd;
+      return a.createdAt.localeCompare(b.createdAt);
+    });
+  return candidates[0] ?? null;
 }
 
 // ── Version ──

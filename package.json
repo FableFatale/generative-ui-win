@@ -1,12 +1,13 @@
 {
   "name": "generative-ui-win",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "MCP server that renders live HTML/SVG widgets in browser windows for Claude Code",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "bin": {
     "generative-ui-win": "dist/src/mcp-server.js",
-    "generative-ui-kanban": "dist/src/kanban-cli.js"
+    "generative-ui-kanban": "dist/src/kanban-cli.js",
+    "generative-ui-sync": "dist/src/kanban-task-sync.js"
   },
   "files": [
     "dist/src/",
