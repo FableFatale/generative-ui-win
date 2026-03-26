@@ -8,6 +8,7 @@ export interface WidgetConnection {
   ws: WebSocket | null;
   ready: boolean;
   messageBuffer: Array<{ type: string; [key: string]: any }>;
+  lastContent?: { type: string; html: string }; // persisted for refresh recovery
   onReady?: () => void;
   onMessage?: (data: any) => void;
   onClosed?: () => void;
@@ -112,6 +113,11 @@ export class WidgetServer {
     const widget = this.widgets.get(id);
     if (!widget) return;
 
+    // Store last setContent for refresh recovery
+    if (message.type === "setContent") {
+      widget.lastContent = message as { type: string; html: string };
+    }
+
     if (widget.ready && widget.ws && widget.ws.readyState === WebSocket.OPEN) {
       widget.ws.send(JSON.stringify(message));
     } else {
@@ -146,6 +152,10 @@ export class WidgetServer {
         switch (msg.type) {
           case "ready":
             widget.ready = true;
+            // Resend last content on refresh/reconnect
+            if (widget.lastContent) {
+              ws.send(JSON.stringify(widget.lastContent));
+            }
             // Flush buffered messages
             for (const buffered of widget.messageBuffer) {
               ws.send(JSON.stringify(buffered));
@@ -171,7 +181,8 @@ export class WidgetServer {
       if (widget.ws === ws) {
         widget.ws = null;
         widget.ready = false;
-        widget.onClosed?.();
+        // Don't call onClosed — browser may just be refreshing.
+        // onClosed is triggered by the explicit "closed" message from the client.
       }
     });
   }
