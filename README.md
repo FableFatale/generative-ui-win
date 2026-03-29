@@ -52,8 +52,24 @@ Features:
 - **Cross-session monitoring** — tasks from all Claude Code windows appear on one board
 - **Auto-refresh** — file watching detects changes from other sessions instantly
 - **Session tracking** — each session gets a unique color-coded label
-- **4-column workflow** — TODO → DOING → DONE → VERSIONS
+- **4-column workflow** — TODO → DOING → DONE → MILESTONES
 - **Browser refresh safe** — widget content persists across page reloads
+
+### DONE Column — Daily Reports
+
+Tasks automatically organize by completion date:
+- **Today's tasks** — editable summary input, always expanded
+- **Historical reports** — collapsed by date, click to expand
+- **Auto-archive** — yesterday's tasks auto-collapse on next-day open
+- **Summary prompt** — modal appears to write a one-line summary
+
+### MILESTONES Column — Version Tracking
+
+Group completed tasks into milestones:
+- **Three states** — Planning → In Progress → Released
+- **Progress bars** — visual progress toward target task count
+- **Tagging system** — click "+ Add Tasks" to associate completed tasks
+- **Version ordering** — milestones sorted newest to oldest (v1.5 → v1.1)
 
 ### Task Dispatch
 

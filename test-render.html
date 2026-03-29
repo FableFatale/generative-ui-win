@@ -1,0 +1,394 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'SF Pro Display','Segoe UI',system-ui,sans-serif; background: #1a1a1a; color: #e0e0e0; }
+  .kb-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 24px;
+    min-height: 100vh;
+    align-content: start;
+  }
+  .kb-column {
+    background: #212121;
+    border-radius: 12px;
+    padding: 16px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .kb-column-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #333;
+    margin-bottom: 4px;
+  }
+  .kb-column-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #aaa;
+  }
+  .kb-column-count {
+    background: #333;
+    color: #ccc;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  .kb-col-todo .kb-column-header { border-color: #ffa94d; }
+  .kb-col-doing .kb-column-header { border-color: #4ecdc4; }
+  .kb-col-done .kb-column-header { border-color: #6bcb77; }
+  .kb-col-version .kb-column-header { border-color: #7c6fe0; }
+
+  .kb-card {
+    background: #2a2a2a;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .kb-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  }
+  .kb-card-priority {
+    width: 4px;
+    flex-shrink: 0;
+  }
+  .kb-card-body {
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .kb-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e0e0e0;
+    line-height: 1.3;
+  }
+  .kb-card-desc {
+    font-size: 12px;
+    color: #999;
+    line-height: 1.4;
+  }
+  .kb-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .kb-priority-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .kb-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .kb-tag {
+    background: #363636;
+    color: #bbb;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .kb-card-id {
+    font-size: 10px;
+    color: #555;
+    font-family: monospace;
+    margin-top: 2px;
+  }
+
+  .kb-version-card { border: 1px solid #7c6fe033; }
+  .kb-version-count {
+    font-size: 11px;
+    color: #7c6fe0;
+    font-weight: 600;
+  }
+  .kb-version-tasks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .kb-version-tasks li {
+    font-size: 11px;
+    color: #888;
+    padding: 2px 0;
+    border-bottom: 1px solid #333;
+  }
+  .kb-version-tasks li:last-child { border-bottom: none; }
+
+  .kb-empty {
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+    padding: 20px 0;
+    font-style: italic;
+  }
+
+  .kb-header {
+    padding: 24px 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .kb-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #e0e0e0;
+  }
+  .kb-title span { color: #7c6fe0; }
+  .kb-stats {
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    gap: 16px;
+  }
+  .kb-stats strong { color: #ccc; }
+  .kb-token-stat { color: #7c6fe0; }
+  .kb-token-stat strong { color: #7c6fe0; font-weight: 700; }
+
+  /* Session badges on cards */
+  .kb-session-badge {
+    font-size: 10px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .kb-session-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  /* Session panel */
+  .kb-sessions {
+    background: #212121;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 0 24px 0;
+  }
+  .kb-sessions-header {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .kb-session-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 12px;
+    color: #bbb;
+  }
+  .kb-session-self { color: #e0e0e0; font-weight: 600; }
+  .kb-session-label { flex: 1; }
+  .kb-session-time { color: #666; font-size: 11px; }
+
+  /* Claim badges on cards */
+  .kb-claimed-badge {
+    font-size: 10px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 1px 6px;
+    background: rgba(255,255,255,0.05);
+  }
+  .kb-unclaimed {
+    border-left: 2px dashed #555;
+    opacity: 0.85;
+  }
+
+  /* Archived Fold Card */
+  .kb-archived-fold {
+    background: #2a2a2a;
+    border-radius: 8px;
+    margin-top: 12px;
+    cursor: pointer;
+    border: 1px solid #3a3a3a;
+  }
+  .kb-fold-header {
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #888;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .kb-fold-icon {
+    font-size: 10px;
+    transition: transform 0.2s;
+  }
+  .kb-fold-title {
+    color: #6bcb77;
+  }
+  .kb-fold-body {
+    display: none;
+    padding: 8px 12px 12px;
+    border-top: 1px solid #3a3a3a;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .kb-fold-expanded .kb-fold-body {
+    display: flex;
+  }
+  .kb-fold-expanded .kb-fold-icon {
+    transform: rotate(90deg);
+  }
+  .kb-fold-version {
+    background: #363636;
+    color: #7c6fe0;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+</style>
+
+<div class="kb-header">
+  <div class="kb-title"><span>Kanban</span> Task Monitor</div>
+  <div class="kb-stats">
+    <span>TODO <strong>0</strong></span>
+    <span>DOING <strong>1</strong></span>
+    <span>DONE <strong>43</strong></span>
+    <span>ARCHIVED <strong>43</strong></span>
+    <span>VER <strong>5</strong></span>
+    <span class="kb-token-stat">TOKENS <strong>8,066</strong></span>
+    <span>SESSIONS <strong>1</strong></span>
+  </div>
+</div>
+
+<div class="kb-sessions">
+    <div class="kb-sessions-header">Active Sessions <span class="kb-column-count">1</span></div>
+    <div class="kb-session-item">
+      <span class="kb-session-dot" style="background:#ff6b6b"></span>
+      <span class="kb-session-label">Session-738C</span>
+      <span class="kb-session-time">59min ago</span>
+    </div>
+  </div>
+
+<div class="kb-board">
+  <div class="kb-column kb-col-todo">
+    <div class="kb-column-header">
+      <span class="kb-column-title">Todo</span>
+      <span class="kb-column-count">0</span>
+    </div>
+    <div class="kb-empty">No tasks</div>
+  </div>
+
+  <div class="kb-column kb-col-doing">
+    <div class="kb-column-header">
+      <span class="kb-column-title">Doing</span>
+      <span class="kb-column-count">1</span>
+    </div>
+    
+    <div class="kb-card" data-id="9be6e41a">
+      <div class="kb-card-priority" style="background:#6bcb77"></div>
+      <div class="kb-card-body">
+        <div class="kb-card-title">QA Generator 测试</div>
+        <div class="kb-card-desc">qa_generator.py: 模板式 QA 生成、LLM 模式 mock 测试</div>
+        <div class="kb-card-meta">
+          <span class="kb-priority-badge" style="color:#6bcb77">LOW</span>
+          <span class="kb-tags"><span class="kb-tag">qa</span><span class="kb-tag">generator</span></span>
+          <span class="kb-session-badge" style="color:#7c6fe0"><span class="kb-session-dot" style="background:#7c6fe0"></span>Session-249F</span>
+          <span class="kb-claimed-badge" style="border-color:#7c6fe0"><span class="kb-session-dot" style="background:#7c6fe0"></span>Session-738C</span>
+        </div>
+        <div class="kb-card-id">9be6e41a</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kb-column kb-col-done">
+    <div class="kb-column-header">
+      <span class="kb-column-title">Done</span>
+      <span class="kb-column-count">0</span>
+    </div>
+    <div class="kb-empty">No unarchived tasks</div>
+    
+    <div class="kb-archived-fold" onclick="this.classList.toggle('kb-fold-expanded')">
+      <div class="kb-fold-header">
+        <span class="kb-fold-icon">▶</span>
+        <span class="kb-fold-title">Archived (43)</span>
+      </div>
+      <div class="kb-fold-body">
+        <span class="kb-fold-version">Backend Changes: 11</span><span class="kb-fold-version">Frontend Changes: 8</span><span class="kb-fold-version">Test Cases: 5</span><span class="kb-fold-version">Reviews: 1</span><span class="kb-fold-version">General: 18</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="kb-column kb-col-version">
+    <div class="kb-column-header">
+      <span class="kb-column-title">Versions</span>
+      <span class="kb-column-count">5</span>
+    </div>
+    
+    <div class="kb-card kb-version-card">
+      <div class="kb-card-priority" style="background:#7c6fe0"></div>
+      <div class="kb-card-body">
+        <div class="kb-card-title">Backend Changes</div>
+        <div class="kb-card-desc">后端相关改动</div>
+        <div class="kb-version-count">11 tasks</div>
+        <ul class="kb-version-tasks"><li>测试任务</li><li>Agent A: 后端 - TextCleaner 添加统计接口</li><li>Agent A: 后端 - TextCleaner 添加统计接口</li><li>修复: text_cleaner.py DRY + 性能</li><li>修复: processing.py 安全+架构</li><li>后端 - HuggingFace 启动失败警告日志</li><li>后端 - 嵌入模型降级/fallback 机制</li><li>后端 - 健康检查扩展 embedding_status 详情</li><li>后端 - 云端嵌入模型重试机制</li><li>后端 - 嵌入失败时保存 checkpoint 并标记可恢复</li><li>后端 - 启动时检查并恢复未完成任务</li></ul>
+        <div class="kb-card-id">f361c72d</div>
+      </div>
+    </div>
+    <div class="kb-card kb-version-card">
+      <div class="kb-card-priority" style="background:#7c6fe0"></div>
+      <div class="kb-card-body">
+        <div class="kb-card-title">Frontend Changes</div>
+        <div class="kb-card-desc">前端相关改动</div>
+        <div class="kb-version-count">8 tasks</div>
+        <ul class="kb-version-tasks"><li>测试前端任务</li><li>Agent B: 前端 - DataProcessing 统计面板</li><li>Agent B: 前端 - DataProcessing 统计面板</li><li>修复: DataProcessing.tsx 响应式+无障碍+i18n</li><li>前端 - SystemStatus 嵌入服务详情卡片</li><li>前端 - localStorage 持久化任务状态</li><li>前端 - 断点续传 UI 状态展示</li><li>前端 API Client 和 Store 测试</li></ul>
+        <div class="kb-card-id">ff0fd990</div>
+      </div>
+    </div>
+    <div class="kb-card kb-version-card">
+      <div class="kb-card-priority" style="background:#7c6fe0"></div>
+      <div class="kb-card-body">
+        <div class="kb-card-title">Test Cases</div>
+        <div class="kb-card-desc">测试用例</div>
+        <div class="kb-version-count">5 tasks</div>
+        <ul class="kb-version-tasks"><li>Agent C: 测试 - clean_with_stats 测试用例</li><li>Agent C: 测试 - clean_with_stats 测试用例</li><li>修复: test_text_cleaner.py 补全测试</li><li>测试 - 验证脚本编写</li><li>集成测试 - 断点续传 + 嵌入降级验证</li></ul>
+        <div class="kb-card-id">a100242f</div>
+      </div>
+    </div>
+    <div class="kb-card kb-version-card">
+      <div class="kb-card-priority" style="background:#7c6fe0"></div>
+      <div class="kb-card-body">
+        <div class="kb-card-title">Reviews</div>
+        <div class="kb-card-desc">代码审查</div>
+        <div class="kb-version-count">1 task</div>
+        <ul class="kb-version-tasks"><li>[审查] /review → TextCleaner 统计接口</li></ul>
+        <div class="kb-card-id">1ee5d8d3</div>
+      </div>
+    </div>
+    <div class="kb-card kb-version-card">
+      <div class="kb-card-priority" style="background:#7c6fe0"></div>
+      <div class="kb-card-body">
+        <div class="kb-card-title">General</div>
+        <div class="kb-card-desc">其他任务</div>
+        <div class="kb-version-count">18 tasks</div>
+        <ul class="kb-version-tasks"><li>[审查] /design-review → DataProcessing 统计面板</li><li>[审查] /qa → clean_with_stats 测试</li><li>修复 test_health.py 健康检查测试</li><li>后端管道 checkpoint 断点续传</li><li>前端任务状态 localStorage 持久化</li><li>运行 pytest 单元测试</li><li>运行集成测试</li><li>检查测试覆盖率</li><li>生成测试报告汇总</li><li>创建测试配置和 fixtures</li><li>Upload API 测试</li><li>Documents API 测试</li><li>Query API 测试</li><li>Processing API 测试</li><li>Rulesets API 测试</li><li>Pipeline Orchestrator 测试</li><li>Vectorstore FAISS 测试</li><li>Embeddings Factory 测试</li></ul>
+        <div class="kb-card-id">40989ee8</div>
+      </div>
+    </div>
+  </div>
+</div>

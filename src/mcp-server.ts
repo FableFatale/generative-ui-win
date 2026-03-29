@@ -483,37 +483,58 @@ mcp.tool(
   },
 );
 
-// ── Tool: kanban_add_version ──
+// ── Tool: kanban_add_milestone ──
 
 mcp.tool(
-  "kanban_add_version",
-  "Create a version milestone and associate completed tasks with it. By default, all completed tasks not yet in a version are included.",
+  "kanban_add_milestone",
+  "Create a milestone (version) to track progress. Tasks can be associated via kanban_add_task_to_milestone.",
   {
-    name: z.string().describe("Version name (e.g. 'v1.0.0')"),
-    description: z.string().optional().describe("Version description"),
-    task_ids: z
-      .array(z.string())
-      .optional()
-      .describe("Specific task IDs to include (default: all unversioned completed tasks)"),
+    name: z.string().describe("Milestone name (e.g. 'Core Pipeline')"),
+    version: z.string().describe("Version number (e.g. 'v1.0')"),
+    description: z.string().optional().describe("Milestone description"),
+    target_tasks: z.number().optional().describe("Target number of tasks (optional, for progress bar)"),
   },
-  async ({ name, description, task_ids }) => {
+  async ({ name, version, description, target_tasks }) => {
     const data = kanbanStore.load();
-    const version = kanbanStore.addVersion(
+    const milestone = kanbanStore.createMilestone(
       data,
       name,
+      version,
       description ?? "",
-      task_ids,
+      target_tasks,
     );
     await refreshKanban();
     return {
       content: [{
         type: "text" as const,
         text: JSON.stringify({
-          version_id: version.id,
-          name: version.name,
-          tasks_count: version.taskIds.length,
-          status: "created",
+          milestone_id: milestone.id,
+          version: milestone.version,
+          name: milestone.name,
+          status: milestone.status,
         }),
+      }],
+    };
+  },
+);
+
+// ── Tool: kanban_add_task_to_milestone ──
+
+mcp.tool(
+  "kanban_add_task_to_milestone",
+  "Associate a completed task with a milestone.",
+  {
+    task_id: z.string().describe("Task ID to add"),
+    milestone_id: z.string().describe("Milestone ID"),
+  },
+  async ({ task_id, milestone_id }) => {
+    const data = kanbanStore.load();
+    const result = kanbanStore.addTaskToMilestone(data, task_id, milestone_id);
+    await refreshKanban();
+    return {
+      content: [{
+        type: "text" as const,
+        text: JSON.stringify({ success: result }),
       }],
     };
   },
