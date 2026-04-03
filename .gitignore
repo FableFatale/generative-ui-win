@@ -3,3 +3,7 @@ dist/
 *.tsbuildinfo
 .DS_Store
 Thumbs.db
+.alma-snapshots
+
+# npm auth token (local only, never commit)
+.npmrc
