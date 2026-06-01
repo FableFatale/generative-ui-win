@@ -10,7 +10,7 @@ Ask an LLM to visualize something and get a **live interactive widget** — slid
 
 Born as a Windows port of [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui), now evolved into a comprehensive development toolkit with MCP server integration, persistent Kanban boards, task dispatch, and cross-session collaboration.
 
-<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/demo-widget.svg" width="100%" alt="LLM → live widget demo" />
+<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/demo-widget.png" width="100%" alt="LLM → live widget demo" />
 
 ---
 
@@ -19,7 +19,7 @@ Born as a Windows port of [pi-generative-ui](https://github.com/Michaelliv/pi-ge
 - **Live widget rendering** — morphdom DOM diffing, streaming HTML, full browser capabilities (Canvas, WebGL, Chart.js, D3, Three.js)
 - **Bidirectional communication** — widgets send data back via WebSocket (~1ms latency)
 
-<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/kanban-board.svg" width="100%" alt="Kanban board with TODO/DOING/DONE/MILESTONES" />
+<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/kanban-board.png" width="100%" alt="Kanban board with TODO/DOING/DONE/MILESTONES" />
 
 - **Visual Kanban board** — cross-session monitoring, daily reports, milestone tracking, task dispatch
 - **MCP server** — drop-in server with 3 CLI binaries: `generative-ui-win`, `generative-ui-kanban`, `generative-ui-sync`

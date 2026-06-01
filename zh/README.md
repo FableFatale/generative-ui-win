@@ -15,7 +15,7 @@
 
 本项目最初是 [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui) 的 Windows 兼容版本，但已发展为包含 MCP 服务集成、持久化看板、任务派发和跨会话协作的综合性开发工具包，功能远超原版。
 
-<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/demo-widget.svg" width="100%" alt="LLM → 实时组件 demo" />
+<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/demo-widget.png" width="100%" alt="LLM → 实时组件 demo" />
 
 ---
 
@@ -218,7 +218,7 @@ Node.js                          浏览器/Electron
 
 ## 📐 看板任务监控
 
-<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/kanban-board.svg" width="100%" alt="看板" />
+<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/kanban-board.png" width="100%" alt="看板" />
 
 
 内置的可视化看板，可在多个 Claude Code 会话间跟踪任务。

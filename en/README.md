@@ -15,7 +15,7 @@ Ask an LLM to visualize something and get a **live interactive widget** — slid
 
 Born as a Windows port of [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui), this project has evolved into a comprehensive development toolkit that goes far beyond the original — with MCP server integration, persistent Kanban boards, task dispatch, and cross-session collaboration.
 
-<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/demo-widget.svg" width="100%" alt="LLM → live widget demo" />
+<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/demo-widget.png" width="100%" alt="LLM → live widget demo" />
 
 ---
 
@@ -217,7 +217,7 @@ Load design guidelines. Modules: `art`, `mockup`, `interactive`, `chart`, `diagr
 
 ## 📐 Kanban Task Monitor
 
-<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/kanban-board.svg" width="100%" alt="Kanban board" />
+<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/kanban-board.png" width="100%" alt="Kanban board" />
 
 
 Built-in visual Kanban board for tracking tasks across multiple Claude Code sessions.

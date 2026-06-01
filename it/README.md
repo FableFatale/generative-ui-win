@@ -14,7 +14,7 @@
 Chiedi a un LLM di visualizzare qualcosa e ottieni un **widget interattivo live** — slider, grafici, animazioni, dashboard — renderizzato in una finestra Electron o in una scheda del browser. Non un'istantanea. Non un blocco di codice. **Un'applicazione HTML reale in streaming live mentre il LLM la genera.**
 
 Nato come port per Windows di [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui), questo progetto è diventato una piattaforma di sviluppo completa con server MCP, board Kanban persistente, sistema di dispatch dei task e collaborazione multi-sessione.
-n<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/demo-widget.svg" width="100%" alt="Demo" />
+n<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/demo-widget.png" width="100%" alt="Demo" />
 
 ---
 

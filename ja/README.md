@@ -14,7 +14,7 @@
 LLM に何かを可視化させると、**リアルタイムのインタラクティブウィジェット**が Electron ウィンドウやブラウザタブに直接レンダリングされます。スクリーンショットでもコードブロックでもなく、**LLM が生成しているその瞬間にストリーミングされる本物の HTML アプリケーション**です。
 
 元は [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui) の Windows ポートでしたが、MCP サーバー統合、永続化カンバン、タスクディスパッチ、クロスセッションコラボレーションを備えた包括的な開発プラットフォームへと進化しました。
-n<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/demo-widget.svg" width="100%" alt="Demo" />
+n<img src="https://raw.githubusercontent.com/FableFatale/generative-ui-win/main/assets/demo-widget.png" width="100%" alt="Demo" />
 
 ---
 
