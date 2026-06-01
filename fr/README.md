@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
 [![npm downloads](https://img.shields.io/npm/dm/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
 
-**Langue** · [English](../en/README.md) · [中文](../zh/README.md) · [Français](#) · [日本語](../ja/README.md) · [English (NZ)](../nz/README.md) · [Italiano](../it/README.md) · [Español](../es/README.md)
+**Langue** · [English](../en/README.md) · [中文](../zh/README.md) · **Français** · [日本語](../ja/README.md) · [English (NZ)](../nz/README.md) · [Italiano](../it/README.md) · [Español](../es/README.md)
 
 ---
 
@@ -14,6 +14,7 @@
 Demandez à un LLM de visualiser quelque chose et obtenez un **widget interactif en direct** — curseurs, graphiques, animations, tableaux de bord — rendu dans une fenêtre Electron ou un onglet de navigateur. Pas un screenshot. Pas un bloc de code. **Une véritable application HTML diffusée en direct pendant que le LLM la génère.**
 
 Initialement un port Windows de [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui), ce projet est devenu une plateforme de développement complète avec serveur MCP, tableau Kanban persistant, système de distribution de tâches et collaboration multi-sessions.
+n![demo](../assets/demo-widget.svg)
 
 ---
 
@@ -49,6 +50,8 @@ Initialement un port Windows de [pi-generative-ui](https://github.com/Michaelliv
 ```bash
 npm install -g generative-ui-win
 ```
+
+Compatible avec tout IDE supportant MCP — **Claude Code**, **OpenAI Codex**, **PI**, **Cursor**, **Windsurf**, ou tout outil parlant le Model Context Protocol.
 
 Ajoutez à vos paramètres Claude Code (`~/.claude/settings.json`) :
 
@@ -150,7 +153,7 @@ generative-ui-win/
 │   ├── svg-styles.ts        # Classes SVG CSS
 │   └── utils.ts             # utilitaires (escapeJS, findAvailablePort, etc.)
 ├── examples/demo.ts
-├── i18n/                     # Documentation multilingue
+# Language-specific READMEs at repo root
 │   ├── en/README.md         # English
 │   ├── zh/README.md         # 中文
 │   ├── fr/README.md         # Français

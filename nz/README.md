@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
 [![npm downloads](https://img.shields.io/npm/dm/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
 
-**Language** · [English](../en/README.md) · [中文](../zh/README.md) · [Français](../fr/README.md) · [日本語](../ja/README.md) · [English (NZ)](#) · [Italiano](../it/README.md) · [Español](../es/README.md)
+**Language** · [English](../en/README.md) · [中文](../zh/README.md) · [Français](../fr/README.md) · [日本語](../ja/README.md) · **English (NZ)** · [Italiano](../it/README.md) · [Español](../es/README.md)
 
 ---
 
@@ -14,6 +14,7 @@
 Ask an LLM to visualise something and get a **live interactive widget** — sliders, charts, animations, dashboards — rendered in an Electron window or browser tab. Not a screenshot. Not a code block. **A bloody ripper HTML application streaming live as the LLM generates it.**
 
 Started as a Windows port of [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui), this project's grown into a proper development toolkit that goes way beyond the original — with MCP server integration, persistent Kanban boards, task dispatch, and cross-session collaboration. Choice.
+n![demo](../assets/demo-widget.svg)
 
 ---
 
@@ -49,6 +50,8 @@ Started as a Windows port of [pi-generative-ui](https://github.com/Michaelliv/pi
 ```bash
 npm install -g generative-ui-win
 ```
+
+Works with any MCP-compatible IDE — **Claude Code**, **OpenAI Codex**, **PI**, **Cursor**, **Windsurf**, or any tool that speaks the Model Context Protocol.
 
 Then add to your Claude Code settings (`~/.claude/settings.json`):
 
@@ -152,7 +155,7 @@ generative-ui-win/
 │   ├── svg-styles.ts        # SVG CSS classes
 │   └── utils.ts             # Utilities (escapeJS, findAvailablePort, etc.)
 ├── examples/demo.ts
-├── i18n/                     # Multi-language docs
+# Language-specific READMEs at repo root
 │   ├── en/README.md         # English
 │   ├── zh/README.md         # 中文
 │   ├── fr/README.md         # Français

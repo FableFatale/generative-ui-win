@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" fill="none">
+  <defs>
+    <linearGradient id="kbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="todoHead" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#30363d"/>
+      <stop offset="100%" stop-color="#21262d"/>
+    </linearGradient>
+    <filter id="cardShadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="380" rx="12" fill="url(#kbg)"/>
+
+  <!-- Title bar -->
+  <rect x="20" y="15" width="760" height="36" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="40" y="39" font-family="sans-serif" font-size="13" fill="#c9d1d9" font-weight="bold">📋 Project Kanban</text>
+  <circle cx="755" cy="33" r="8" fill="#3fb950"/>
+  <circle cx="740" cy="33" r="5" fill="#d29922"/>
+  <circle cx="725" cy="33" r="5" fill="#58a6ff"/>
+  <text x="708" y="37" font-family="monospace" font-size="9" fill="#8b949e">3 sessions</text>
+
+  <!-- Column 1: TODO -->
+  <rect x="20" y="65" width="180" height="300" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <rect x="20" y="65" width="180" height="32" rx="8" fill="url(#todoHead)"/>
+  <rect x="20" y="89" width="180" height="8" fill="url(#todoHead)"/>
+  <circle cx="38" cy="81" r="5" fill="#8b949e"/>
+  <text x="55" y="86" font-family="sans-serif" font-size="12" fill="#c9d1d9" font-weight="bold">TODO</text>
+  <rect x="150" y="73" width="24" height="16" rx="8" fill="#30363d"/>
+  <text x="162" y="85" text-anchor="middle" font-family="monospace" font-size="10" fill="#8b949e">4</text>
+
+  <!-- TODO cards -->
+  <g filter="url(#cardShadow)">
+    <rect x="28" y="105" width="164" height="40" rx="5" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+    <rect x="28" y="105" width="4" height="40" rx="2" fill="#f0883e"/>
+    <text x="40" y="122" font-family="monospace" font-size="10" fill="#c9d1d9">Add JWT auth</text>
+    <text x="40" y="137" font-family="monospace" font-size="8" fill="#8b949e">🔴 P0 · session-b1</text>
+  </g>
+  <g filter="url(#cardShadow)">
+    <rect x="28" y="152" width="164" height="40" rx="5" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+    <rect x="28" y="152" width="4" height="40" rx="2" fill="#d29922"/>
+    <text x="40" y="169" font-family="monospace" font-size="10" fill="#c9d1d9">Rate limiter</text>
+    <text x="40" y="184" font-family="monospace" font-size="8" fill="#8b949e">🟡 P1 · session-a3</text>
+  </g>
+  <g filter="url(#cardShadow)">
+    <rect x="28" y="199" width="164" height="40" rx="5" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+    <rect x="28" y="199" width="4" height="40" rx="2" fill="#d29922"/>
+    <text x="40" y="216" font-family="monospace" font-size="10" fill="#c9d1d9">API docs</text>
+    <text x="40" y="231" font-family="monospace" font-size="8" fill="#8b949e">🟡 P1 · session-b1</text>
+  </g>
+  <g filter="url(#cardShadow)">
+    <rect x="28" y="246" width="164" height="40" rx="5" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+    <rect x="28" y="246" width="4" height="40" rx="2" fill="#3fb950"/>
+    <text x="40" y="263" font-family="monospace" font-size="10" fill="#c9d1d9">Dark mode</text>
+    <text x="40" y="278" font-family="monospace" font-size="8" fill="#8b949e">🟢 P2 · session-c2</text>
+  </g>
+
+  <!-- Column 2: DOING -->
+  <rect x="212" y="65" width="180" height="300" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <rect x="212" y="65" width="180" height="32" rx="8" fill="url(#todoHead)"/>
+  <rect x="212" y="89" width="180" height="8" fill="url(#todoHead)"/>
+  <circle cx="230" cy="81" r="5" fill="#58a6ff"/>
+  <text x="247" y="86" font-family="sans-serif" font-size="12" fill="#c9d1d9" font-weight="bold">DOING</text>
+  <rect x="342" y="73" width="24" height="16" rx="8" fill="#1f6feb33"/>
+  <text x="354" y="85" text-anchor="middle" font-family="monospace" font-size="10" fill="#58a6ff">2</text>
+
+  <g filter="url(#cardShadow)">
+    <rect x="220" y="105" width="164" height="40" rx="5" fill="#21262d" stroke="#1f6feb44" stroke-width="1"/>
+    <rect x="220" y="105" width="4" height="40" rx="2" fill="#58a6ff"/>
+    <text x="232" y="122" font-family="monospace" font-size="10" fill="#c9d1d9">Refactor DB layer</text>
+    <text x="232" y="137" font-family="monospace" font-size="8" fill="#8b949e">🔴 P0 · session-a3</text>
+    <rect x="334" y="110" width="44" height="16" rx="8" fill="#1f6feb22"/>
+    <text x="356" y="122" text-anchor="middle" font-family="monospace" font-size="7" fill="#58a6ff">60%</text>
+  </g>
+  <g filter="url(#cardShadow)">
+    <rect x="220" y="152" width="164" height="40" rx="5" fill="#21262d" stroke="#1f6feb44" stroke-width="1"/>
+    <rect x="220" y="152" width="4" height="40" rx="2" fill="#d29922"/>
+    <text x="232" y="169" font-family="monospace" font-size="10" fill="#c9d1d9">Cache strategy</text>
+    <text x="232" y="184" font-family="monospace" font-size="8" fill="#8b949e">🟡 P1 · session-b1</text>
+    <rect x="334" y="157" width="44" height="16" rx="8" fill="#1f6feb22"/>
+    <text x="356" y="169" text-anchor="middle" font-family="monospace" font-size="7" fill="#58a6ff">30%</text>
+  </g>
+
+  <!-- Column 3: DONE -->
+  <rect x="404" y="65" width="180" height="300" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <rect x="404" y="65" width="180" height="32" rx="8" fill="url(#todoHead)"/>
+  <rect x="404" y="89" width="180" height="8" fill="url(#todoHead)"/>
+  <circle cx="422" cy="81" r="5" fill="#3fb950"/>
+  <text x="439" y="86" font-family="sans-serif" font-size="12" fill="#c9d1d9" font-weight="bold">DONE</text>
+  <rect x="534" y="73" width="24" height="16" rx="8" fill="#2ea04333"/>
+  <text x="546" y="85" text-anchor="middle" font-family="monospace" font-size="10" fill="#3fb950">6</text>
+
+  <g filter="url(#cardShadow)">
+    <rect x="412" y="105" width="164" height="32" rx="5" fill="#21262d" stroke="#30363d" stroke-width="1" opacity="0.7"/>
+    <text x="424" y="121" font-family="monospace" font-size="10" fill="#8b949e" text-decoration="line-through">Setup CI/CD</text>
+    <text x="424" y="133" font-family="monospace" font-size="8" fill="#484f58">✓ session-a3</text>
+  </g>
+  <g filter="url(#cardShadow)">
+    <rect x="412" y="143" width="164" height="32" rx="5" fill="#21262d" stroke="#30363d" stroke-width="1" opacity="0.7"/>
+    <text x="424" y="159" font-family="monospace" font-size="10" fill="#8b949e" text-decoration="line-through">Login page</text>
+    <text x="424" y="171" font-family="monospace" font-size="8" fill="#484f58">✓ session-b1</text>
+  </g>
+  <g filter="url(#cardShadow)">
+    <rect x="412" y="181" width="164" height="32" rx="5" fill="#21262d" stroke="#30363d" stroke-width="1" opacity="0.7"/>
+    <text x="424" y="197" font-family="monospace" font-size="10" fill="#8b949e" text-decoration="line-through">Error handling</text>
+    <text x="424" y="209" font-family="monospace" font-size="8" fill="#484f58">✓ session-c2</text>
+  </g>
+
+  <text x="494" y="235" text-anchor="middle" font-family="monospace" font-size="9" fill="#484f58">+3 more today</text>
+
+  <!-- Column 4: MILESTONES -->
+  <rect x="596" y="65" width="184" height="300" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <rect x="596" y="65" width="184" height="32" rx="8" fill="url(#todoHead)"/>
+  <rect x="596" y="89" width="184" height="8" fill="url(#todoHead)"/>
+  <circle cx="614" cy="81" r="5" fill="#bc8cff"/>
+  <text x="631" y="86" font-family="sans-serif" font-size="12" fill="#c9d1d9" font-weight="bold">MILESTONES</text>
+
+  <!-- v1.0 -->
+  <rect x="604" y="105" width="168" height="50" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+  <text x="614" y="122" font-family="sans-serif" font-size="11" fill="#bc8cff" font-weight="bold">v1.0</text>
+  <rect x="660" y="115" width="24" height="14" rx="7" fill="#3fb95033"/>
+  <text x="672" y="125" text-anchor="middle" font-famil

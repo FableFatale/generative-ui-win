@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
 [![npm downloads](https://img.shields.io/npm/dm/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
 
-**Language** · [English](#) · [中文](../zh/README.md) · [Français](../fr/README.md) · [日本語](../ja/README.md) · **Español** · [Español](../es/README.md)
+**Language** · **English** · [中文](../zh/README.md) · [Français](../fr/README.md) · [日本語](../ja/README.md) · [English (NZ)](../nz/README.md) · [Italiano](../it/README.md) · [Español](../es/README.md)
 
 ---
 
@@ -15,7 +15,23 @@ Ask an LLM to visualize something and get a **live interactive widget** — slid
 
 Born as a Windows port of [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui), this project has evolved into a comprehensive development toolkit that goes far beyond the original — with MCP server integration, persistent Kanban boards, task dispatch, and cross-session collaboration.
 
+![demo](../assets/demo-widget.svg)
+
 ---
+
+## 📑 Contents
+
+- [✨ What is generative-ui-win?](#-what-is-generative-ui-win)
+- [🎯 Core Features](#-core-features)
+- [🚀 Install](#-install)
+- [🏁 Quick Start](#-quick-start)
+- [🛠 How It Works](#-how-it-works)
+- [📚 API Reference](#-api-reference)
+- [📐 Kanban Task Monitor](#-kanban-task-monitor)
+- [🗂 Project Structure](#-project-structure)
+- [📊 How Far Beyond the Original?](#-how-far-beyond-the-original)
+- [🙏 Credits](#-credits)
+- [📜 License](#-license)
 
 ## 🎯 Core Features
 
@@ -50,6 +66,8 @@ Born as a Windows port of [pi-generative-ui](https://github.com/Michaelliv/pi-ge
 npm install -g generative-ui-win
 ```
 
+Works with any MCP-compatible IDE — **Claude Code**, **OpenAI Codex**, **PI**, **Cursor**, **Windsurf**, or any tool that speaks the Model Context Protocol.
+
 Then add to your Claude Code settings (`~/.claude/settings.json`):
 
 ```json
@@ -63,7 +81,7 @@ Then add to your Claude Code settings (`~/.claude/settings.json`):
 }
 ```
 
-Restart Claude Code, and the `show_widget` / `update_widget` / `run_scripts` / `close_widget` / `get_guidelines` tools become available. Kanban tools (`kanban_show`, `kanban_add_task`, `kanban_batch_add`, `kanban_move_task`, `kanban_claim_task`, `kanban_add_version`, `kanban_heartbeat`, `kanban_get_status`) are also included.
+Restart your IDE, and the `show_widget` / `update_widget` / `run_scripts` / `close_widget` / `get_guidelines` tools become available. Kanban tools (`kanban_show`, `kanban_add_task`, `kanban_batch_add`, `kanban_move_task`, `kanban_claim_task`, `kanban_add_version`, `kanban_heartbeat`, `kanban_get_status`) are also included.
 
 ### From source
 
@@ -199,6 +217,9 @@ Load design guidelines. Modules: `art`, `mockup`, `interactive`, `chart`, `diagr
 
 ## 📐 Kanban Task Monitor
 
+![kanban](../assets/kanban-board.svg)
+
+
 Built-in visual Kanban board for tracking tasks across multiple Claude Code sessions.
 
 ### Core Features
@@ -257,7 +278,7 @@ generative-ui-win/
 │   ├── window-manager.ts    # WindowManager + WindowHandle
 │   ├── kanban-server.ts     # Persistent Kanban HTTP server
 │   ├── kanban-store.ts      # Kanban data persistence
-│   ├── kanban-enderer.ts    # Kanban board HTML renderer
+│   ├── kanban-renderer.ts    # Kanban board HTML renderer
 │   ├── kanban-renderer.ts   # Kanban board HTML generator
 │   ├── kanban-task-sync.ts  # PostToolUse sync hook
 │   ├── kanban-cli.ts        # Standalone Kanban CLI
@@ -269,8 +290,8 @@ generative-ui-win/
 │   └── utils.ts             # escapeJS, findAvailablePort, generateId
 ├── examples/
 │   └── demo.ts              # Three demo widgets
-├── i18n/                    # Multi-language docs
-│   ├── en/README.md         # English
+├── # Language-specific READMEs at repo root
+│   ├── en/README.md         # English (full docs)
 │   ├── zh/README.md         # 中文
 │   ├── fr/README.md         # Français
 │   ├── ja/README.md         # 日本語

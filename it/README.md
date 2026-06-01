@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
 [![npm downloads](https://img.shields.io/npm/dm/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
 
-**Lingua** · [English](../en/README.md) · [中文](../zh/README.md) · [Français](../fr/README.md) · [日本語](../ja/README.md) · [English (NZ)](../nz/README.md) · [Italiano](#) · [Español](../es/README.md)
+**Lingua** · [English](../en/README.md) · [中文](../zh/README.md) · [Français](../fr/README.md) · [日本語](../ja/README.md) · [English (NZ)](../nz/README.md) · **Italiano** · [Español](../es/README.md)
 
 ---
 
@@ -14,6 +14,7 @@
 Chiedi a un LLM di visualizzare qualcosa e ottieni un **widget interattivo live** — slider, grafici, animazioni, dashboard — renderizzato in una finestra Electron o in una scheda del browser. Non un'istantanea. Non un blocco di codice. **Un'applicazione HTML reale in streaming live mentre il LLM la genera.**
 
 Nato come port per Windows di [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui), questo progetto è diventato una piattaforma di sviluppo completa con server MCP, board Kanban persistente, sistema di dispatch dei task e collaborazione multi-sessione.
+n![demo](../assets/demo-widget.svg)
 
 ---
 
@@ -49,6 +50,8 @@ Nato come port per Windows di [pi-generative-ui](https://github.com/Michaelliv/p
 ```bash
 npm install -g generative-ui-win
 ```
+
+Compatibile con qualsiasi IDE che supporti MCP — **Claude Code**, **OpenAI Codex**, **PI**, **Cursor**, **Windsurf**, o qualsiasi strumento che parli il Model Context Protocol.
 
 Aggiungi alle impostazioni di Claude Code (`~/.claude/settings.json`):
 
@@ -150,7 +153,7 @@ generative-ui-win/
 │   ├── svg-styles.ts        # Classi SVG CSS
 │   └── utils.ts             # Utility (escapeJS, findAvailablePort, ecc.)
 ├── examples/demo.ts
-├── i18n/                     # Documentazione multilingua
+# Language-specific READMEs at repo root
 │   ├── en/README.md         # English
 │   ├── zh/README.md         # 中文
 │   ├── fr/README.md         # Français

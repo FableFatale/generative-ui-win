@@ -3,11 +3,11 @@
 [![npm version](https://img.shields.io/npm/v/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
 [![npm downloads](https://img.shields.io/npm/dm/generative-ui-win)](https://www.npmjs.com/package/generative-ui-win)
 
-**语言** · [English](../en/README.md) · [中文](#) · [Français](../fr/README.md) · [日本語](../ja/README.md) · English (NZ)](../nz/README.md) · [Italiano](../it/README.md) · [Español](../es/README.md)
+**语言** · [English](../en/README.md) · **中文** · [Français](../fr/README.md) · [日本語](../ja/README.md) · [English (NZ)](../nz/README.md) · [Italiano](../it/README.md) · [Español](../es/README.md)
 
 ---
 
-##  什么是 generative-ui-win？
+## ✨ 什么是 generative-ui-win？
 
 **跨平台生成式 UI——从实时组件到团队看板**
 
@@ -15,9 +15,26 @@
 
 本项目最初是 [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui) 的 Windows 兼容版本，但已发展为包含 MCP 服务集成、持久化看板、任务派发和跨会话协作的综合性开发工具包，功能远超原版。
 
+![demo](../assets/demo-widget.svg)
+
 ---
 
-##  核心功能
+## 📑 目录
+
+- [✨ 什么是 generative-ui-win？](#-什么是-generative-ui-win)
+- [🎯 核心功能](#-核心功能)
+- [🚀 安装](#-安装)
+- [🏁 快速开始](#-快速开始)
+- [🛠 工作原理](#-工作原理)
+- [📚 API 参考](#-api-参考)
+- [📐 看板任务监控](#-看板任务监控)
+- [🗂 项目结构](#-项目结构)
+- [📊 相比原版](#-相比原版)
+- [🙏 致谢](#-致谢)
+- [📜 License](#-license)
+
+
+## 🎯 核心功能
 
 ###  实时组件渲染
 - **流式 HTML 渲染** — morphdom DOM diffing，流畅无闪烁更新
@@ -42,13 +59,15 @@
 
 ---
 
-## 安装
+## 🚀 安装
 
 ### 作为 MCP 服务器（推荐）
 
 ```bash
 npm install -g generative-ui-win
 ```
+
+兼容所有 MCP 协议的 IDE — **Claude Code**、**OpenAI Codex**、**PI**、**Cursor**、**Windsurf** 等，只要是支持 Model Context Protocol 的工具都能用。
 
 然后在 Claude Code 设置中添加（`~/.claude/settings.json`）：
 
@@ -63,7 +82,7 @@ npm install -g generative-ui-win
 }
 ```
 
-重启 Claude Code 后即可使用 `show_widget` / `update_widget` / `run_scripts` / `close_widget` / `get_guidelines` 等工具。看板工具（`kanban_show`, `kanban_add_task`, `kanban_batch_add`, `kanban_move_task`, `kanban_claim_task`, `kanban_add_version`, `kanban_heartbeat`, `kanban_get_status`）也已包含。
+重启 IDE 后即可使用 `show_widget` / `update_widget` / `run_scripts` / `close_widget` / `get_guidelines` 等工具。看板工具（`kanban_show`, `kanban_add_task`, `kanban_batch_add`, `kanban_move_task`, `kanban_claim_task`, `kanban_add_version`, `kanban_heartbeat`, `kanban_get_status`）也已包含。
 
 ### 从源码构建
 
@@ -173,7 +192,7 @@ Node.js                          浏览器/Electron
 
 ---
 
-## API 参考
+## 📚 API 参考
 
 ### `showWidget(html, options?)`
 打开一个组件并显示 HTML。返回 `WindowHandle`。
@@ -198,6 +217,9 @@ Node.js                          浏览器/Electron
 ---
 
 ## 📐 看板任务监控
+
+![kanban](../assets/kanban-board.svg)
+
 
 内置的可视化看板，可在多个 Claude Code 会话间跟踪任务。
 
@@ -246,7 +268,7 @@ Node.js                          浏览器/Electron
 
 ---
 
-##  项目结构
+## 🗂 项目结构
 
 ```
 generative-ui-win/
@@ -268,8 +290,8 @@ generative-ui-win/
 │   └── utils.ts             # escapeJS、findAvailablePort、generateId
 ├── examples/
 │   └── demo.ts              # 三个演示组件
-├── i18n/                     # 多语言文档
-│   ├── en/README.md         # English
+├── # 各语言 README 位于仓库根目录
+│   ├── en/README.md         # English (完整文档)
 │   ├── zh/README.md         # 中文
 │   ├── fr/README.md         # Français
 │   ├── ja/README.md         # 日本語
@@ -289,9 +311,9 @@ generative-ui-win/
 
 ---
 
-## 相比原版
+## 📊 相比原版
 
-原版 pi-generative-ui 仅仅了一个 macOS 专用工具用 WKWebView 渲染 HTML、注入 JavaScript。这个版本已经成为一全功能的开发平台：
+原版 pi-generative-ui 仅仅是一个 macOS 专用工具用 WKWebView 渲染 HTML、注入 JavaScript。这个版本已经成为一个全功能的开发平台：
 
 | 维度 | 原版 (macOS) | 本版本 |
 |------|-------------|-------|
@@ -312,12 +334,12 @@ generative-ui-win/
 
 ---
 
-##  致谢
+## 🙏 致谢
 
 - [pi-generative-ui](https://github.com/Michaelliv/pi-generative-ui) — 原版 macOS 实现
 - [morphdom](https://github.com/patrick-steele-idem/morphdom) — DOM 差分引擎
 - [Electron](https://www.electronjs.org/) — 跨平台窗口
 
-##  License
+## 📜 License
 
 MIT
